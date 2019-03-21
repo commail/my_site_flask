@@ -16,10 +16,10 @@ bootstrap = Bootstrap()
 def create_app(config_name):
     app = flask.Flask(__name__)
     bootstrap.init_app(app)
-    db.init_app(app)
-    migrate = Migrate(db=db)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
+    db.init_app(app)
+    migrate = Migrate(db=db)
 
     # 注册路由
 

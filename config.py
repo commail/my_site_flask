@@ -21,15 +21,17 @@ def get_db_uri():
     # host = ''
     # port = ''
     # database = ''
+    db_can = 'root&chum1304z&127.0.0.1&3306&my_web'
     db_uri = 'mysql+pymysql://{}:{}@{}:{}/{}'
-    user, password, host, port, database = os.environ['DATABASE'].split('&')
-    print(db_uri.format(user, password, host, port, database))
+    user, password, host, port, database = db_can.split('&')
     return db_uri.format(user, password, host, port, database)
 
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = get_db_uri()
 
     @staticmethod
     def init_app(app):
@@ -38,7 +40,6 @@ class Config:
 
 class DevelopConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = get_db_uri()
 
 
 config = {
