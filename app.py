@@ -21,7 +21,13 @@ def create_app(config_name):
     db.init_app(app)
     migrate = Migrate(db=db)
 
+    # 首页路由
+    @app.route('/')
+    def index():
+        return '1111111111'
+
     # 注册路由
+    # app.register_blueprint('/blog', url_prefix='')
 
     # 错误处理
 

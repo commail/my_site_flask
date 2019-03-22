@@ -4,12 +4,19 @@
 # @Author :garyhost
 # @File :user_model.py
 from app import db
+import comm
 from manage import app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(db.Model):
+    __tablename__ = 'user'
+    object_id = db.Column(db.String, primary_key=True, unique=True, default=comm.create_primary_key())
     confirmed = db.Column(db.Boolean, default=False)
+    username = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    token = db.Column(db.String)
 
     def generate_confirmation_token(self, expiration=3600):
         s = Serializer(app.config['SECRET_KEY'], expiration)
