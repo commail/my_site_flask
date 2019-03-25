@@ -1,3 +1,3 @@
 from flask import *
 
-blue = Blueprint('v1/user', __name__)
+blue = Blueprint('v1/record', 'record')

@@ -4,31 +4,16 @@
 # @Author :garyhost
 # @File :app.py
 import flask
-from flask_bootstrap import Bootstrap
-from flask_sqlalchemy import SQLAlchemy
 from config import config
-from flask_migrate import Migrate
-
-db = SQLAlchemy()
-bootstrap = Bootstrap()
+import logging
 
 
 def create_app(config_name):
+    from api.v1 import user, blog
     app = flask.Flask(__name__)
-    bootstrap.init_app(app)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
-    db.init_app(app)
-    migrate = Migrate(db=db)
-
-    # 首页路由
-    @app.route('/')
-    def index():
-        return '1111111111'
-
-    # 注册路由
-    # app.register_blueprint('/blog', url_prefix='')
-
-    # 错误处理
+    app.register_blueprint(user.blue, url_perfix='/v1/user')
+    # app.register_blueprint(blog.blue, url_perfix='/v1/blog')
 
     return app
