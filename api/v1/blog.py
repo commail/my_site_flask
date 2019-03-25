@@ -21,7 +21,8 @@ def blog_list():
         data = {
             'blogId': blog.object_id,
             'title': blog.title,
-            'content': blog.content,
+            'createdAt': blog.created_at,
+            'updatedAt': blog.updated_at,
         }
         rv.append(data)
     return {
@@ -29,10 +30,25 @@ def blog_list():
     }
 
 
-@blue.route('/create', methods=['POST'])
+@blue.route('/create/', methods=['POST'])
 def blog_create():
     params = request.get_json()
     new_blog = model.Blog(title=params.title, content=params.content)
     db.session.add(new_blog)
     db.session.commit()
     return {}
+
+
+@blue.route('/content/', methods=['GET'])
+def blog_content():
+    params = request.get_args
+    bid = params.get('bid')
+    blog = model.Blog.query.filter_by(object_id=bid).first()
+    data = {
+        'blogId': blog.object_id,
+        'title': blog.title,
+        'content': blog.content,
+        'createdAt': blog.created_at,
+        'updatedAt': blog.updated_at,
+    }
+    render_template()
