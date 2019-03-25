@@ -10,9 +10,9 @@ import datetime
 
 class Blog(db.Model):
     __tablename__ = 'blog'
-    object_id = db.Column(db.String, primary_key=True, unique=True, default=comm.create_primary_key())
-    user = db.relationship('User')
-    title = db.Column(db.String)
+    object_id = db.Column(db.String(64), primary_key=True, unique=True, default=comm.create_primary_key())
+    user = db.Column(db.String(64), db.ForeignKey('user.object_id'))
+    title = db.Column(db.String(64))
     content = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.datetime.now())

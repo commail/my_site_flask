@@ -16,7 +16,11 @@ def create_app(config_name):
 
     @app.route('/')
     def index():
-        return flask.render_template('blog.html')
+        return flask.render_template('index.html')
+
+    @app.route('/register')
+    def register():
+        return flask.render_template('register.html')
     app.register_blueprint(user.blue, url_perfix='/v1/user')
     # app.register_blueprint(blog.blue, url_perfix='/v1/blog')
 
