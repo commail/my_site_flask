@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+    function Login() {
+        var login = false;
+        var  txtname = $("#username").val();
+        var txtpsw = $("#password").val();
+        var obj = jsonData()
+        $.ajax({
+            url:"{{url_for("v1/user.login") }}",
+            data:{"username":txtname,"password":txtpsw},
+            type: 'GET',
+            contentType: 'application/json',
+            async: false,
+            success: function (d) {
+                alert("success!"+d)
+                var status = d.status;
+                if (d != "undefined" && d=="success")
+                {
+                     window.location.href="infor";{# 这里链接的应该是路由中的名称#}
+                }
+                else
+                {
+                    alert("登录失败！")
+                }
+            }
+        });
+        return login;
+    }
+</script>
+</head>
+<body>
+<div align="center">
+    <div>
+        <div>
+            <h1>Welcome</h1>
+            <form class="form" method="post" action="" onsubmit="return Login();">
+                <input type="text" placeholder="Username" name="username" id="username">
+                <input type="password" placeholder="Password" name="password" id="password">
+                <button type="submit" id="login-button">SubmitLogin</button>
+                <button type="button" id="btnlogin">ButtonLogin</button>
+                <a href="infor">testhtm</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

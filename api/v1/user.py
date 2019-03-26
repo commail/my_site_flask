@@ -10,15 +10,18 @@ from config import db
 blue = Blueprint('v1/user', 'user')
 
 
-@blue.route('/login/', methods=['GET'])
+@blue.route('/login/', methods=['POST'])
 def login():
     params = request.get_json()
+    print(params)
     un = params.get('username')
     pwd = params.get('password')
     user = model.User.query.filter_by(username=un).first()
+    print(un, pwd)
     if pwd != user.get('password'):
         raise ValueError()
+
     data = {
         'username': un,
     }
-    render_template('blog.html', data=data)
+    return render_template('index.html', data=data)

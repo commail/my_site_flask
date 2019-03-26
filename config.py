@@ -10,6 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 db = SQLAlchemy()
+migrate = Migrate(db=db)
 bootstrap = Bootstrap()
 login = LoginManager()
 
@@ -30,7 +31,7 @@ def get_db_uri():
     # host = ''
     # port = ''
     # database = ''
-    db_can = 'root&chum1304z&127.0.0.1&3306&my_web'
+    db_can = 'root&chum1304z&127.0.0.1&3306&my_site'
     db_uri = 'mysql+pymysql://{}:{}@{}:{}/{}'
     user, password, host, port, database = db_can.split('&')
     return db_uri.format(user, password, host, port, database)
@@ -46,7 +47,7 @@ class Config:
     def init_app(app):
         bootstrap.init_app(app)
         db.init_app(app)
-        migrate = Migrate(db=db)
+        migrate.init_app(app=app)
         login.init_app(app)
 
 

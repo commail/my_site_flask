@@ -8,4 +8,4 @@ import uuid
 
 # 生成主键
 def create_primary_key():
-    return uuid.uuid1()
+    return str(uuid.uuid1())
